@@ -1,0 +1,8 @@
+# Generated state files
+_last_order.json
+_last_dcr.json
+_last_token.json
+_rs_credentials.json
+
+# User configuration (contains project-specific values)
+config.env

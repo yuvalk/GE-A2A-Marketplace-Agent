@@ -1,0 +1,52 @@
+{
+  "defaultInputModes": ["text/plain"],
+  "defaultOutputModes": ["application/json"],
+  "description": "An agent specialized in retrieving the current time in a specified city.",
+  "name": "remote_time_agent",
+  "protocolVersion": "0.3.0",
+  "provider": {
+    "organization": "TestOrg",
+    "url": "PLACEHOLDER_PROVIDER_URL"
+  },
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false,
+    "extensions": [
+      {
+        "uri": "https://cloud.google.com/marketplace/docs/partners/ai-agents/setup-dcr",
+        "params": {
+          "target_url": "PLACEHOLDER_DCR_URL"
+        }
+      }
+    ]
+  },
+  "skills": [
+    {
+      "id": "time_retrieval",
+      "name": "Time Retrieval",
+      "description": "Retrieve the current time in a specified city",
+      "tags": ["time", "location"],
+      "security": [{"oauth2": ["agent:time"]}]
+    }
+  ],
+  "url": "PLACEHOLDER_AGENT_URL",
+  "version": "1.0.0",
+  "securitySchemes": {
+    "oauth2": {
+      "type": "oauth2",
+      "flows": {
+        "authorizationCode": {
+          "authorizationUrl": "PLACEHOLDER_IDP_AUTHORIZE_URL",
+          "tokenUrl": "PLACEHOLDER_IDP_TOKEN_URL",
+          "refreshUrl": "PLACEHOLDER_IDP_TOKEN_URL",
+          "scopes": {
+            "agent:time": "Get the current time from the agent.",
+            "openid": "Basic user profile",
+            "offline_access": "Refresh token."
+          }
+        }
+      }
+    }
+  },
+  "security": [{"oauth2": ["agent:time", "openid", "offline_access"]}]
+}

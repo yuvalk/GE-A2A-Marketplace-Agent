@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+python-dotenv
+httpx
+pytz
+geopy
+timezonefinder
+google-adk
+a2a-sdk
+google-genai

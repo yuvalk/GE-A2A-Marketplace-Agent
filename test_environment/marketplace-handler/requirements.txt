@@ -1,0 +1,12 @@
+fastapi
+uvicorn
+httpx
+google-auth
+google-cloud-pubsub
+pydantic
+python-jose
+cryptography
+python-dotenv
+requests
+google-cloud-iam>=2.21.0
+google-cloud-firestore
