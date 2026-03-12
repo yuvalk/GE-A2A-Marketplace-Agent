@@ -77,11 +77,35 @@ The other defaults work out of the box. Here's what each setting does:
 |----------|---------|---------|
 | `PROJECT_ID` | *(must set)* | Your GCP project |
 | `REGION` | `us-central1` | GCP region for all resources |
-| `PROVIDER_URL` | `https://test-agent-provider.example.com` | JWT audience for DCR validation |
+| `PROVIDER_URL` | `https://test-agent-provider.example.com` | JWT audience for DCR validation (see [below](#provider_url-explained)) |
 | `MOCK_API_TOKEN` | `mock-api-token-for-testing` | API token for mock-idp client management |
 | `PUBSUB_TOPIC_NAME` | `test-marketplace-orders` | Pub/Sub topic for order notifications |
 | `PUBSUB_SUBSCRIPTION_NAME` | `test-marketplace-orders-sub` | Pub/Sub push subscription name |
 | `PROVIDER_ID` | `test-provider` | Provider ID in procurement API paths |
+
+### PROVIDER_URL Explained
+
+`PROVIDER_URL` is **not** something you obtain from GCP. It is a URL that **you choose** to identify your organization as the agent provider. It serves as the JWT `aud` (audience) claim during DCR validation — when Gemini Enterprise sends a DCR request, the signed JWT's audience must match this value.
+
+**How it works in the real flow:**
+
+1. You set `provider.url` in your Agent Card (`agent.json`) to your organization's URL
+2. Google reads this URL from your Agent Card when a customer registers your agent
+3. Google includes it as the `aud` claim in the DCR JWT it signs
+4. Your marketplace-handler validates that the JWT's `aud` matches your expected `PROVIDER_URL`
+
+**For this test environment**, the default (`https://test-agent-provider.example.com`) works perfectly — it just needs to be consistent across the agent card, the marketplace-handler config, and the DCR JWT. The deploy script handles wiring all three together automatically.
+
+**In production**, you would use your actual organization URL (e.g., `https://mycompany.com`). This is the same URL you set in the Agent Card's `provider.url` field when listing on Cloud Marketplace:
+
+```json
+{
+  "provider": {
+    "organization": "My Company",
+    "url": "https://mycompany.com"
+  }
+}
+```
 
 ### 2. Deploy
 
